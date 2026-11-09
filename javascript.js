@@ -19,7 +19,7 @@ function saveGame() {
 
 
 workButton.addEventListener("click", function(event) {
-    currentBalance += 1; 
+    currentBalance += 10; 
     balanceSpan.textContent = currentBalance;
     saveGame(); // Сохраняем после клика
 
@@ -88,6 +88,39 @@ buyAutoButton.addEventListener("click", function() {
         showNotification("🚗 Автомойка куплена!"); 
     }
 });
+
+
+
+const bakery = {
+    name: "Bakkerij",
+    price: Number(localStorage.getItem("bakeryPrice")) || 250,
+    profit: 18
+};
+
+// Правильно объявляем переменную и привязываем к нужному id
+const bakeryPriceText = document.getElementById("bakery-price");
+const buybakeryButton = document.getElementById("buy-bakery");
+
+bakeryPriceText.textContent = "Prijs: € " + bakery.price;
+
+buybakeryButton.addEventListener("click", function() {
+    if (currentBalance >= bakery.price) {
+        currentBalance -= bakery.price; 
+        currentIncome += bakery.profit; 
+        bakery.price = Math.floor(bakery.price * 1.5);
+        
+        balanceSpan.textContent = currentBalance; 
+        incomeSpan.textContent = currentIncome;
+        
+        // Обновляем текст именно у пекарни
+        bakeryPriceText.textContent = "Prijs: € " + bakery.price; 
+        
+        saveGame(); 
+        showNotification("🥖 Пекарня куплена!"); 
+        localStorage.setItem("bakeryPrice", bakery.price);
+    }
+});
+
 
 // === 5. ИГРОВОЙ ЦИКЛ (ТАЙМЕР ДОХОДА) ===
 setInterval(function() {
