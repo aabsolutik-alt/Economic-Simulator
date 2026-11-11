@@ -19,11 +19,11 @@ function saveGame() {
 
 
 workButton.addEventListener("click", function(event) {
-    currentBalance += 10; 
+    currentBalance += 1; 
     balanceSpan.textContent = currentBalance;
-    saveGame(); // Сохраняем после клика
+    Updatebutton();
+    saveGame();
 
-    // Анимация клика
     const floatElement = document.createElement("div");
     floatElement.textContent = "+€1";
     floatElement.classList.add("floating-text");
@@ -38,14 +38,14 @@ workButton.addEventListener("click", function(event) {
 
 const koffiekraam = {
     name: "Koffiekraam",
-    price: Number(localStorage.getItem("koffiePrice")) || 50, // Грузим цену из памяти или берем 50
+    price: Number(localStorage.getItem("koffiePrice")) || 50,
     profit: 2
 };
 
 const koffiePriceText = document.getElementById("koffie-price");
 const buyKoffieButton = document.getElementById("buy-koffie");
 
-koffiePriceText.textContent = "Prijs: € " + koffiekraam.price; // Пишем актуальную цену на экран
+koffiePriceText.textContent = "Prijs: € " + koffiekraam.price; 
 
 buyKoffieButton.addEventListener("click", function() {
     if (currentBalance >= koffiekraam.price) {
@@ -56,16 +56,41 @@ buyKoffieButton.addEventListener("click", function() {
         balanceSpan.textContent = currentBalance; 
         incomeSpan.textContent = currentIncome;
         koffiePriceText.textContent = "Prijs: € " + koffiekraam.price; 
-        
-        saveGame(); // Сохраняем прогресс
-        showNotification("☕ Кофейня куплена!"); // Вызываем уведомление
+        Updatebutton();
+        saveGame(); 
+        showNotification("☕ Кофейня куплена!"); 
     }
 });
+
+function Updatebutton() {
+    if (currentBalance >= koffiekraam.price) {
+        buyKoffieButton.disabled = false ;
+    }  else {
+        buyKoffieButton.disabled = true;
+    }
+    if (currentBalance >= autowasstraat.price) {
+        buyAutoButton.disabled = false;
+       }   else {
+            buyAutoButton.disabled = true; 
+        }
+        if (currentBalance >= bakery.price) {
+            buybakeryButton.disabled = false;
+        }  else {
+            buybakeryButton.disabled = true;
+        }
+        if (currentBalance >= Macdonalds.price) {
+            MacdonaldsButton.disabled = false;
+            
+        } else { MacdonaldsButton.disabled = true;
+            }
+
+    };
+
 
 
 const autowasstraat = {
     name: "Autowasstraat",
-    price: Number(localStorage.getItem("autoPrice")) || 250,
+    price: Number(localStorage.getItem("autoPrice")) || 150,
     profit: 10
 };
 
@@ -83,11 +108,12 @@ buyAutoButton.addEventListener("click", function() {
         balanceSpan.textContent = currentBalance; 
         incomeSpan.textContent = currentIncome;
         autoPriceText.textContent = "Prijs: € " + autowasstraat.price; 
-        
-        saveGame(); // Сохраняем прогресс
+        Updatebutton();
+        saveGame(); 
         showNotification("🚗 Автомойка куплена!"); 
     }
 });
+
 
 
 
@@ -97,7 +123,7 @@ const bakery = {
     profit: 18
 };
 
-// Правильно объявляем переменную и привязываем к нужному id
+
 const bakeryPriceText = document.getElementById("bakery-price");
 const buybakeryButton = document.getElementById("buy-bakery");
 
@@ -112,9 +138,8 @@ buybakeryButton.addEventListener("click", function() {
         balanceSpan.textContent = currentBalance; 
         incomeSpan.textContent = currentIncome;
         
-        // Обновляем текст именно у пекарни
         bakeryPriceText.textContent = "Prijs: € " + bakery.price; 
-        
+        Updatebutton();
         saveGame(); 
         showNotification("🥖 Пекарня куплена!"); 
         localStorage.setItem("bakeryPrice", bakery.price);
@@ -122,11 +147,44 @@ buybakeryButton.addEventListener("click", function() {
 });
 
 
+const Macdonalds = {
+    name: "Macdonalds",
+    price: Number(localStorage.getItem("MacdonaldsPrice")) || 500,
+    profit : 30
+};
+
+const MacdonaldsPriceText = document.getElementById("Macdonalds-price");
+const MacdonaldsButton = document.getElementById("buy-Macdonalds");
+
+MacdonaldsPriceText.textContent = "Prijs: € " + Macdonalds.price;
+
+MacdonaldsButton.addEventListener("click", function() {
+    if (currentBalance >= Macdonalds.price) {
+        currentBalance -= Macdonalds.price;
+        currentIncome += Macdonalds.profit;
+        Macdonalds.price = Math.floor(Macdonalds.price * 2.5 );
+
+        balanceSpan.textContent = currentBalance;
+        incomeSpan.textContent = currentIncome;
+
+        MacdonaldsPriceText.textContent = "Prijs: € " + Macdonalds.price;
+        Updatebutton();
+        saveGame();
+        showNotification("Мак куплен!")
+        localStorage.setItem("macdonaldsPrice", Macdonalds.price);
+    }
+
+});
+
+
+
+
 // === 5. ИГРОВОЙ ЦИКЛ (ТАЙМЕР ДОХОДА) ===
 setInterval(function() {
     if (currentIncome > 0) {
         currentBalance += currentIncome;
         balanceSpan.textContent = currentBalance;
+        Updatebutton();
         saveGame(); // Сохраняем пассивный доход
     }
 }, 1000);
@@ -140,10 +198,8 @@ function showNotification(message) {
     
     setTimeout(function() {
         toast.remove();
-    }, 3000);
+    }, 1000);
 }
-
-
 
 const resetButton = document.getElementById("reset-btn");
 

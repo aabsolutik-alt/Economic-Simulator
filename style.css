@@ -160,3 +160,15 @@ body {
 }
 
 
+.business-card__buy-btn:disabled {
+    background-color: #333;
+    color: #666;
+    cursor: not-allowed;
+    border-color: #222;
+}
+
+
+.business-card__buy-btn:disabled:hover {
+    background-color: #333;
+    transform: none;
+}
