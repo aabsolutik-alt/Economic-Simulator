@@ -1,0 +1,12 @@
+## Wekelijkse Reflectie & Retrospective
+**Wat ging er goed:**
+* Het concept van JavaScript Objecten (zoals het opslaan van `price`, `profit` en `count`) is met succes geïmplementeerd om speldata te structureren.
+* De core-loop van de simulatie (inkomen genereren via `setInterval` en DOM-updates) werkt stabiel.
+
+**Wat was lastig (Knelpunten):**
+* De koppeling tussen de ruwe data (JS Objecten) en de visuele interface (DOM-manipulatie) was in het begin verwarrend.
+* Conflicten met dubbele HTML-ID's en CSS flexbox/grid uitlijning zorgden voor visuele bugs.
+
+**Wat heb ik geleerd:**
+* Het cruciale verschil tussen ingebouwde JS-mechanismen (zoals `+=`, `-=`), data-opslag (Objecten) en DOM-connectoren (`getElementById`, `.textContent`).
+* Fouten opsporen (debuggen), het oplossen van *Temporal Dead Zone* problemen (volgorde van code-uitvoering) en het optimaliseren van de code-architectuur.

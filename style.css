@@ -1,0 +1,176 @@
+body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    margin: 0;
+    font-family: Arial,  sans-serif;
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-bottom: 2px solid #444;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.clicker-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.clicker-section__btn {
+    padding: 15px 30px;
+    font-size: 15px;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.business-card {
+    background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #444;
+   
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
+
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+}
+
+.business-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+}
+
+.business-card__name {
+    font-size: 15px;
+}
+.business-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+    border-color: #4caf50; 
+}
+
+
+.business-card__buy-btn {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.business-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.business-info h3, 
+.business-info p {
+    margin: 3px 0;
+}
+
+
+.business-card__buy-btn:hover {
+    background-color: #4caf50; 
+}
+
+
+.business-card__buy-btn:active, 
+.clicker-section__btn:active {
+    transform: scale(0.95); 
+}
+
+.market-section__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.floating-text {
+    position: absolute; 
+    color: #4caf50; 
+    font-weight: bold;
+    font-size: 20px;
+    pointer-events: none; 
+    animation: floatUp 1s ease-out forwards; 
+}
+
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+
+.notification {
+    position: fixed; 
+    bottom: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    z-index: 1000; 
+    
+    animation: slideIn 0.3s ease-out, fadeOut 0.5s ease-out 2.5s forwards;
+}
+
+@keyframes slideIn {
+    0% { transform: translateX(100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+
+.reset-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+
+.business-card__buy-btn:disabled {
+    background-color: #333;
+    color: #666;
+    cursor: not-allowed;
+    border-color: #222;
+}
+
+
+.business-card__buy-btn:disabled:hover {
+    background-color: #333;
+    transform: none;
+}

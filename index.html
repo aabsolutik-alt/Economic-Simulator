@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <button id="reset-btn" class="reset-btn">Reset</button>
+        <h1 class="header__title">Economic Simulator</h1>
+        <div class="header__stats">
+            <p class="header__balance">Saldo: €<span id="balance">0</span></p>
+            <p class="header__income">Inkomen: €<span id="income">0</span> / sec</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="clicker-section">
+            <button class="clicker-section__btn" id="work-btn">Werken (€ 1)</button>
+        </section>
+
+    <section class="market-section">
+    <h2 class="market-section__title">Bedrijven Markt</h2>
+    <div class="market-section__grid" id="business-container">
+        
+
+      <article class="business-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" alt="Koffie" class="business-img">
+    <div class="business-info">
+        <h3 class="business-card__name">Koffiekraam</h3>
+        <p class="business-card__price" id="koffie-price">Prijs: € 50</p>
+        <p class="business-card__profit">Winst: € 2 / sec</p>
+        <button class="business-card__buy-btn" id="buy-koffie">Kopen</button>
+        <h3 class="business-card__name">Koffiekraam <span id="koffie-count">(0)</span></h3>
+    </div>
+</article>
+
+     <article class="business-card">
+  <img src="https://cdn-icons-png.flaticon.com/512/2555/2555013.png" alt="Autowasstraat" class="business-img">
+    <div class="business-info">
+        <h3 class="business-card__name">Autowasstraat</h3>
+        <p class="business-card__price" id="auto-price">Prijs: € 150</p>
+        <p class="business-card__profit">Winst: € 10 / sec</p>
+        <button class="business-card__buy-btn" id="buy-auto">Kopen</button>
+    </div>
+</article>
+
+     <article class="business-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081967.png" alt="Автомойка" class="business-img">
+    <div class="business-info">
+        <h3 class="business-card__name">Bakery</h3>
+        <p class="business-card__price" id="bakery-price">Prijs: € 250</p>
+        <p class="business-card__profit">Winst: € 18 / sec</p>
+        <button class="business-card__buy-btn" id="buy-bakery">Kopen</button>
+    </div>
+</article>
+
+     <article class="business-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Macdonalds" class="business-img">
+    <div class="business-info">
+        <h3 class="business-card__name">Macdonalds</h3>
+        <p class="business-card__price" id="Macdonalds-price">Prijs: € 500</p>
+        <p class="business-card__profit">Winst: € 30 / sec</p>
+        <button class="business-card__buy-btn" id="buy-Macdonalds">Kopen</button>
+    </div>
+</article>
+
+  <article class="business-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/6600/6600370.png " alt="IT-Bedrijf" class="business-img">
+    <div class="business-info">
+        <h3 class="business-card__name">IT-Bedrijf</h3>
+        <p class="business-card__price" id="it-price">Prijs: € 1100</p>
+        <p class="business-card__profit">Winst: € 50 / sec</p>
+        <button class="business-card__buy-btn" id="buy-it">Kopen</button>
+    </div>
+</article>
+
+<article class="business-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/8644/8644428.png " alt="Vastgoedbedrijf" class="business-img"> 
+    <div class="business-info">
+        <h3 class="business-card__name">Vastgoedbedrijf</h3>
+        <p class="business-card__price" id="Vastgoedbedrijf-price">Prijs: € 3500</p>
+        <p class="business-card__profit">Winst: € 120 / sec</p>
+         <button class="business-card__buy-btn" id="buy-Vastgoedbedrijf">Kopen</button>
+    </div>
+</article>
+
+<article class="business-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/2765/2765275.png" alt="Logistiek centrum" class="business-img"> 
+    <div class="business-info">
+        <h3 class="business-card__name">Logistiek centrum</h3>
+        <p class="business-card__price" id="Logistiek-price">Prijs: € 12000</p>
+        <p class="business-card__profit">Winst: € 450 / sec</p>
+         <button class="business-card__buy-btn" id="buy-Logistiek">Kopen</button>
+    </div>
+</article>
+
+<article class="business-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/1138/1138072.png" alt="Supermarktketen" class="business-img"> 
+    <div class="business-info">
+        <h3 class="business-card__name">Supermarktketen</h3>
+        <p class="business-card__price" id="Supermarktketen-price">Prijs: € 45000</p>
+        <p class="business-card__profit">Winst: € 1600 / sec</p>
+         <button class="business-card__buy-btn" id="buy-Supermarktketen">Kopen</button>
+    </div>
+</article>
+
+
+<article class="business-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/2511/2511629.png " alt="Zonne-energiepark" class="business-img"> 
+    <div class="business-info">
+        <h3 class="business-card__name">Zonne-energiepark</h3>
+        <p class="business-card__price" id="Zonne-energiepark-price">Prijs: € 155000</p>
+        <p class="business-card__profit">Winst: € 5500 / sec</p>
+         <button class="business-card__buy-btn" id="buy-Zonne-energiepark">Kopen</button>
+    </div>
+</article>
+
+
+<article class="business-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/2830/2830284.png" alt="Investeringsbank" class="business-img"> 
+    <div class="business-info">
+        <h3 class="business-card__name">Investeringsbank</h3>
+        <p class="business-card__price" id="Investeringsbank-price">Prijs: € 600000</p>
+        <p class="business-card__profit">Winst: € 220000 / sec</p>
+         <button class="business-card__buy-btn" id="buy-Investeringsbank">Kopen</button>
+    </div>
+</article>
+    </div>
+</section>
+    </main>
+    <script src="javascript.js"></script>
+</body>
+</html>
