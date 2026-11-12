@@ -35,7 +35,7 @@ body {
     padding: 15px;
     border-radius: 10px;
     border: 1px solid #444;
-    width: 320px;
+   
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
 
     display: flex; 
@@ -50,7 +50,9 @@ body {
     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
 }
 
-
+.business-card__name {
+    font-size: 15px;
+}
 .business-card:hover {
     transform: translateY(-5px); 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
@@ -94,10 +96,10 @@ body {
 }
 
 .market-section__grid {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 20px; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
 }
 
 .floating-text {

@@ -5,7 +5,6 @@ const balanceSpan = document.getElementById("balance");
 const incomeSpan = document.getElementById("income");
 const workButton = document.getElementById("work-btn");
 
-
 balanceSpan.textContent = currentBalance;
 incomeSpan.textContent = currentIncome;
 
@@ -15,11 +14,15 @@ function saveGame() {
     localStorage.setItem("saveIncome", currentIncome);
     localStorage.setItem("koffiePrice", koffiekraam.price);
     localStorage.setItem("autoPrice", autowasstraat.price);
+    localStorage.setItem("bakeryPrice", bakery.price);
+    localStorage.setItem("MacdonaldsPrice", Macdonalds.price);
+    localStorage.setItem("itPrice", It.price);
+    localStorage.setItem("VastgoedbedrijfPrice",Vastgoedbedrijf.Price)
 }
 
 
 workButton.addEventListener("click", function(event) {
-    currentBalance += 1; 
+    currentBalance += 1000; 
     balanceSpan.textContent = currentBalance;
     Updatebutton();
     saveGame();
@@ -58,7 +61,7 @@ buyKoffieButton.addEventListener("click", function() {
         koffiePriceText.textContent = "Prijs: € " + koffiekraam.price; 
         Updatebutton();
         saveGame(); 
-        showNotification("☕ Кофейня куплена!"); 
+        showNotification("☕ Het koffiehuis is gekocht!"); 
     }
 });
 
@@ -83,6 +86,11 @@ function Updatebutton() {
             
         } else { MacdonaldsButton.disabled = true;
             }
+        if (currentBalance >= It.price) {
+            itButton.disabled = false;
+        } else {
+            itButton.disabled = true;
+        }
 
     };
 
@@ -110,7 +118,7 @@ buyAutoButton.addEventListener("click", function() {
         autoPriceText.textContent = "Prijs: € " + autowasstraat.price; 
         Updatebutton();
         saveGame(); 
-        showNotification("🚗 Автомойка куплена!"); 
+        showNotification("🚗 De autowasstraat is gekocht!"); 
     }
 });
 
@@ -141,7 +149,7 @@ buybakeryButton.addEventListener("click", function() {
         bakeryPriceText.textContent = "Prijs: € " + bakery.price; 
         Updatebutton();
         saveGame(); 
-        showNotification("🥖 Пекарня куплена!"); 
+        showNotification("🥖 De bakkerij is gekocht!"); 
         localStorage.setItem("bakeryPrice", bakery.price);
     }
 });
@@ -170,7 +178,7 @@ MacdonaldsButton.addEventListener("click", function() {
         MacdonaldsPriceText.textContent = "Prijs: € " + Macdonalds.price;
         Updatebutton();
         saveGame();
-        showNotification("Мак куплен!")
+        showNotification("🍔 De Macdonalds is gekocht!")
         localStorage.setItem("macdonaldsPrice", Macdonalds.price);
     }
 
@@ -178,17 +186,107 @@ MacdonaldsButton.addEventListener("click", function() {
 
 
 
+const It = {
+    name: "IT-Bedrijf",
+    price: Number(localStorage.getItem("itPrice")) || 1100,
+    profit : 50
+};
+const itPriceText = document.getElementById("it-price");
+const itButton = document.getElementById("buy-it");
 
-// === 5. ИГРОВОЙ ЦИКЛ (ТАЙМЕР ДОХОДА) ===
+itPriceText.textContent = "Prijs: € " + It.price;
+itButton.addEventListener("click", function() {
+    if (currentBalance >= It.price) {
+        currentBalance -= It.price;
+        currentIncome += It.profit;
+        It.price = Math.floor(It.price * 2.5 );
+
+        balanceSpan.textContent = currentBalance;
+        incomeSpan.textContent = currentIncome;
+
+        itPriceText.textContent = "Prijs: € " + It.price;
+        Updatebutton();
+        saveGame();
+        showNotification("💻 Het IT-Bedrijf is gekocht!")
+        localStorage.setItem("itPrice", It.price);
+    }
+
+});
+
+
+Updatebutton();
+
+
+const  Vastgoedbedrijf =  {
+    name:"Vastgoedbedrijf",
+    price: Number(localStorage.getItem("VastgoedbedrijfPrice")) || 3500,
+    profit: 120
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 setInterval(function() {
     if (currentIncome > 0) {
         currentBalance += currentIncome;
         balanceSpan.textContent = currentBalance;
         Updatebutton();
-        saveGame(); // Сохраняем пассивный доход
+        saveGame();
     }
 }, 1000);
 
+Updatebutton();
 
 function showNotification(message) {
     const toast = document.createElement("div");
