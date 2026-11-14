@@ -1,6 +1,7 @@
 let currentBalance = Number(localStorage.getItem("saveBalance")) || 0;
 let currentIncome = Number(localStorage.getItem("saveIncome")) || 0;
 
+
 const balanceSpan = document.getElementById("balance");
 const incomeSpan = document.getElementById("income");
 const workButton = document.getElementById("work-btn");
@@ -17,12 +18,17 @@ function saveGame() {
     localStorage.setItem("bakeryPrice", bakery.price);
     localStorage.setItem("MacdonaldsPrice", Macdonalds.price);
     localStorage.setItem("itPrice", It.price);
-    localStorage.setItem("VastgoedbedrijfPrice",Vastgoedbedrijf.Price)
+    localStorage.setItem("VastgoedbedrijfPrice", Vastgoedbedrijf.price);
+    localStorage.setItem("logistiekPrice", Logistiek.price);
+    localStorage.setItem("SupermarktketenPrice", Supermarktketen.price);
+    localStorage.setItem("ZonneenergieparkPrice", Zonneeenergiepark.price);
+    localStorage.setItem("InvesteringsbankPrice", Investeringsbank.price);
+
 }
 
 
 workButton.addEventListener("click", function(event) {
-    currentBalance += 1000; 
+    currentBalance += 10; 
     balanceSpan.textContent = currentBalance;
     Updatebutton();
     saveGame();
@@ -39,16 +45,19 @@ workButton.addEventListener("click", function(event) {
     }, 1000);
 });
 
+
+
+
 const koffiekraam = {
     name: "Koffiekraam",
-    price: Number(localStorage.getItem("koffiePrice")) || 50,
-    profit: 2
+    price: Number(localStorage.getItem("koffiePrice")) || 1500,
+    profit: 20,
 };
 
 const koffiePriceText = document.getElementById("koffie-price");
 const buyKoffieButton = document.getElementById("buy-koffie");
 
-koffiePriceText.textContent = "Prijs: € " + koffiekraam.price; 
+koffiePriceText.textContent = `Prijs: € ${koffiekraam.price.toLocaleString("nl-NL")}`;
 
 buyKoffieButton.addEventListener("click", function() {
     if (currentBalance >= koffiekraam.price) {
@@ -56,9 +65,9 @@ buyKoffieButton.addEventListener("click", function() {
         currentIncome += koffiekraam.profit; 
         koffiekraam.price = Math.floor(koffiekraam.price * 1.15);
         
-        balanceSpan.textContent = currentBalance; 
-        incomeSpan.textContent = currentIncome;
-        koffiePriceText.textContent = "Prijs: € " + koffiekraam.price; 
+        balanceSpan.textContent = currentBalance.toLocaleString("nl-NL");
+        incomeSpan.textContent = currentIncome.toLocaleString("nl-NL");
+        koffiePriceText.textContent = `Prijs: € ${koffiekraam.price.toLocaleString("nl-NL")}`;
         Updatebutton();
         saveGame(); 
         showNotification("☕ Het koffiehuis is gekocht!"); 
@@ -92,14 +101,46 @@ function Updatebutton() {
             itButton.disabled = true;
         }
 
+       if (currentBalance >= Vastgoedbedrijf.price) {
+           VastgoedbedrijfButton.disabled = false;
+        } else {
+           VastgoedbedrijfButton.disabled = true;
+        }
+
+        if (currentBalance >= Logistiek.price) {
+           LogistiekpButton.disabled = false;
+        } else {
+           LogistiekpButton.disabled = true;
+        }
+
+
+         if (currentBalance >= Supermarktketen.price) {
+          SupermarktketenButton.disabled = false;
+        } else {
+           SupermarktketenButton.disabled = true;
+        }
+
+           if (currentBalance >= Zonneeenergiepark.price) {
+        ZonneenergieparkButton.disabled = false;
+        } else {
+           ZonneenergieparkButton.disabled = true;
+        }
+
+              if (currentBalance >= Investeringsbank.price) {
+        InvesteringsbankButton.disabled = false;
+        } else {
+           InvesteringsbankButton.disabled = true;
+        }
+    
+    
     };
 
 
 
 const autowasstraat = {
     name: "Autowasstraat",
-    price: Number(localStorage.getItem("autoPrice")) || 150,
-    profit: 10
+    price: Number(localStorage.getItem("autoPrice")) || 8000,
+    profit: 50,
 };
 
 const autoPriceText = document.getElementById("auto-price");
@@ -127,8 +168,8 @@ buyAutoButton.addEventListener("click", function() {
 
 const bakery = {
     name: "Bakkerij",
-    price: Number(localStorage.getItem("bakeryPrice")) || 250,
-    profit: 18
+    price: Number(localStorage.getItem("bakeryPrice")) || 20000,
+    profit: 100,
 };
 
 
@@ -141,7 +182,7 @@ buybakeryButton.addEventListener("click", function() {
     if (currentBalance >= bakery.price) {
         currentBalance -= bakery.price; 
         currentIncome += bakery.profit; 
-        bakery.price = Math.floor(bakery.price * 1.5);
+        bakery.price = Math.floor(bakery.price * 1.15);
         
         balanceSpan.textContent = currentBalance; 
         incomeSpan.textContent = currentIncome;
@@ -157,8 +198,8 @@ buybakeryButton.addEventListener("click", function() {
 
 const Macdonalds = {
     name: "Macdonalds",
-    price: Number(localStorage.getItem("MacdonaldsPrice")) || 500,
-    profit : 30
+    price: Number(localStorage.getItem("MacdonaldsPrice")) || 30000,
+    profit : 200,
 };
 
 const MacdonaldsPriceText = document.getElementById("Macdonalds-price");
@@ -170,7 +211,7 @@ MacdonaldsButton.addEventListener("click", function() {
     if (currentBalance >= Macdonalds.price) {
         currentBalance -= Macdonalds.price;
         currentIncome += Macdonalds.profit;
-        Macdonalds.price = Math.floor(Macdonalds.price * 2.5 );
+        Macdonalds.price = Math.floor(Macdonalds.price * 1.15 );
 
         balanceSpan.textContent = currentBalance;
         incomeSpan.textContent = currentIncome;
@@ -188,8 +229,8 @@ MacdonaldsButton.addEventListener("click", function() {
 
 const It = {
     name: "IT-Bedrijf",
-    price: Number(localStorage.getItem("itPrice")) || 1100,
-    profit : 50
+    price: Number(localStorage.getItem("itPrice")) || 45000,
+    profit : 350,
 };
 const itPriceText = document.getElementById("it-price");
 const itButton = document.getElementById("buy-it");
@@ -199,7 +240,7 @@ itButton.addEventListener("click", function() {
     if (currentBalance >= It.price) {
         currentBalance -= It.price;
         currentIncome += It.profit;
-        It.price = Math.floor(It.price * 2.5 );
+        It.price = Math.floor(It.price * 1.15 );
 
         balanceSpan.textContent = currentBalance;
         incomeSpan.textContent = currentIncome;
@@ -214,65 +255,159 @@ itButton.addEventListener("click", function() {
 });
 
 
-Updatebutton();
 
-
-const  Vastgoedbedrijf =  {
+const Vastgoedbedrijf =  {
     name:"Vastgoedbedrijf",
-    price: Number(localStorage.getItem("VastgoedbedrijfPrice")) || 3500,
-    profit: 120
+    price: Number(localStorage.getItem("VastgoedbedrijfPrice")) || 120000,
+    profit: 800,
+    
+}; 
 
+
+const VastgoedbedrijfPriceText = document.getElementById("Vastgoedbedrijf-price");
+const VastgoedbedrijfButton = document.getElementById("buy-Vastgoedbedrijf");
+
+VastgoedbedrijfPriceText.textContent = "Prijs: € " + Vastgoedbedrijf.price;
+VastgoedbedrijfButton.addEventListener("click", function() {
+    if (currentBalance >= Vastgoedbedrijf.price) {
+       (currentBalance -= Vastgoedbedrijf.price);
+       (currentIncome += Vastgoedbedrijf.profit);
+       Vastgoedbedrijf.price = Math.floor(Vastgoedbedrijf.price * 1.15);
+       balanceSpan.textContent = currentBalance;
+       incomeSpan.textContent = currentIncome;
+
+        VastgoedbedrijfPriceText.textContent = "Prijs: € " + Vastgoedbedrijf.price;
+        Updatebutton();
+        saveGame();
+        showNotification("💻 Het IT-Bedrijf is gekocht!")
+        localStorage.setItem("VastgoedbedrijfPrice", Vastgoedbedrijf.price);
+    }
+
+
+});
+
+
+
+const Logistiek =  {
+    name: "Logistiek",
+    price: Number(localStorage.getItem("LogistiekPrice")) || 350000,
+    profit: 1200,
 };
 
+const LogistiekpPriceText = document.getElementById("Logistiek-price");
+const LogistiekpButton = document.getElementById("buy-Logistiek");
+
+LogistiekpPriceText.textContent = "Prijs: € " + Logistiek.price;
+LogistiekpButton.addEventListener("click", function() {
+       if (currentBalance >= Logistiek.price) {
+          (currentBalance -= Logistiek.price);
+          (currentIncome += Logistiek.profit);
+          Logistiek.price = Math.floor(Logistiek.price * 1.15);
+          balanceSpan.textContent = currentBalance;
+          incomeSpan.textContent = currentIncome;
+
+          LogistiekpPriceText.textContent = "Prijs: € " + Logistiek.price;
+          Updatebutton();
+          saveGame();
+          showNotification("dada")
+          localStorage.setItem("LogistiekpPrice", Logistiek.price);
+       }
+
+    });
+    
 
 
+    const Supermarktketen = {
+        name: "Supermarktketen",
+        price: Number(localStorage.getItem("SupermarktketenPrice")) || 1000000,
+        profit: 2000,
+    };
+
+    const SupermarktketenPriceText = document.getElementById("Supermarktketen-price");
+    const SupermarktketenButton = document.getElementById("buy-Supermarktketen")
+
+    SupermarktketenPriceText.textContent = "Prijs: € " + Supermarktketen.price;
+    SupermarktketenButton.addEventListener("click", function() {
+        if (currentBalance >= Supermarktketen.price) {
+            (currentBalance -= Supermarktketen.price);
+            (currentIncome += Supermarktketen.profit);
+            Supermarktketen.price = Math.floor(Supermarktketen.price * 1.15);
+            balanceSpan.textContent = currentBalance;
+            incomeSpan.textContent = currentIncome;
+
+        SupermarktketenPriceText.textContent = "Prijs: € " + Supermarktketen.price;
+          Updatebutton();
+          saveGame();
+          showNotification("dada")
+          localStorage.setItem("SupermarktketenPrice", Supermarktketen.price);
+
+    }
+    });
 
 
+// 1. Creating the business object (database)
+const Zonneeenergiepark = {
+    name: "Zonneenergiepark",
+    price: Number(localStorage.getItem("ZonneenergieparkPrice")) || 1500000,
+    profit: 5500,
+};
+
+// 2 HTML connection
+const ZonneeenergieparkPriceText = document.getElementById("Zonneenergiepark-price");
+const ZonneenergieparkButton = document.getElementById("buy-Zonneenergiepark");
+
+// 3 Display the initial price on the screen when the page loads
+ZonneeenergieparkPriceText.textContent = "Prijs: € " + Zonneeenergiepark.price;
+
+// 4 Add a click event listener to the button 
+
+ZonneenergieparkButton.addEventListener("click", function() {
+    // 5  check if the player has enough balance (conditional check)
+    if (currentBalance >= Zonneeenergiepark.price) {
+        (currentBalance -= Zonneeenergiepark.price);
+        (currentIncome += Zonneeenergiepark.profit);
+        Zonneeenergiepark.price = Math.floor(Zonneeenergiepark.price * 1.15);
+        // 6 Update numbers on the screen 
+        balanceSpan.textContent = currentBalance;
+        incomeSpan.textContent = currentIncome;
+        ZonneeenergieparkPriceText.textContent = ("Prijs: € " + Zonneeenergiepark.price);
+
+        // run service functions 
+
+        Updatebutton();
+        saveGame();
+        showNotification("De Zonnee-energie park is gekocht!")
+}
+});
 
 
+const Investeringsbank = {
+    name: "Investeringsbank",
+    price: Number(localStorage.getItem("InvesteringsbankPrice")) || 4000000,
+    profit: 12000,
+}
 
+const InvesteringsbankPriceText = document.getElementById("Investeringsbank-price");
+const InvesteringsbankButton = document.getElementById("buy-Investeringsbank");
 
+InvesteringsbankPriceText.textContent = "Prijs: € " + Investeringsbank.price;
 
+InvesteringsbankButton.addEventListener("click", function() {
+    if (currentBalance >= Investeringsbank.price) {
+        (currentBalance -= Investeringsbank.price);
+        (currentIncome += Investeringsbank.profit);
+        Investeringsbank.price = Math.floor(Investeringsbank.price * 1.15);
 
+        balanceSpan.textContent = currentBalance;
+        incomeSpan.textContent = currentIncome; 
 
+        InvesteringsbankPriceText.textContent = ("Prijs: € " + Investeringsbank.price);
+        Updatebutton();
+        saveGame();
+        showNotification("De Investeringsbank is gekocht!");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+});
 
 
 
