@@ -1,13 +1,16 @@
 let currentBalance = Number(localStorage.getItem("saveBalance")) || 0;
 let currentIncome = Number(localStorage.getItem("saveIncome")) || 0;
+let ClickPower = Number(localStorage.getItem("saveClickPower")) || 1000;
 
 
 const balanceSpan = document.getElementById("balance");
 const incomeSpan = document.getElementById("income");
 const workButton = document.getElementById("work-btn");
 
+
 balanceSpan.textContent = currentBalance.toLocaleString("nl-NL");
 incomeSpan.textContent = currentIncome.toLocaleString("nl-NL");
+workButton.textContent = `Klikken € ${ClickPower.toLocaleString("nl-NL")}`;
 
 
 function saveGame() {
@@ -33,17 +36,18 @@ function saveGame() {
     localStorage.setItem("Supermarktketen-count", Supermarktketen.count);
     localStorage.setItem("Zonne-energiepark-count", Zonneeenergiepark.count);
     localStorage.setItem("Investeringsbank-count", Investeringsbank.count);
+    localStorage.setItem("saveClickPower", ClickPower);
 }
 
 
 workButton.addEventListener("click", function(event) {
-    currentBalance += 100000; 
+    currentBalance += ClickPower; 
     balanceSpan.textContent = currentBalance.toLocaleString("nl-NL");
     Updatebutton();
     saveGame();
 
     const floatElement = document.createElement("div");
-    floatElement.textContent = `+€${(1).toLocaleString("nl-NL")}`;
+    floatElement.textContent = `+€${ClickPower.toLocaleString("nl-NL")}`;
     floatElement.classList.add("floating-text");
     floatElement.style.left = event.clientX + "px";
     floatElement.style.top = event.clientY + "px";
@@ -489,8 +493,19 @@ function showNotification(message) {
 }
 
 const resetButton = document.getElementById("reset-btn");
+resetButton.addEventListener("click", function() { 
+    if(currentBalance > 0){
+    const deductElement = document.createElement("span");
+    deductElement.textContent = `-€${currentBalance.toLocaleString("nl-NL")}`;
+    balanceSpan.parentElement.appendChild(deductElement);
+    deductElement.classList.add("balance-deduction")
+    }
+    currentBalance = 0;
+    currentIncome = 0;
+    balanceSpan.textContent = 0;
+    incomeSpan.textContent = 0;
+    Updatebutton();
+     setTimeout(function() {localStorage.clear(); location.reload(); }, 1500);
+ });
 
-resetButton.addEventListener("click", function() {
-    localStorage.clear(); 
-    location.reload();  
-});
+
